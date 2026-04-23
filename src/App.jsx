@@ -4,6 +4,7 @@ import HomePage from "./pages/HomePage";
 import Root from "./components/Root";
 import SignupPage from "./pages/SignupPage";
 import LoginPage from "./pages/LoginPage";
+import CheckoutPage from "./pages/CheckoutPage";
 
 const router = createBrowserRouter([
   {
@@ -12,15 +13,19 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <HomePage/>
+        element: <HomePage />
       },
       {
         path: "/signup",
-        element: <SignupPage/>
+        element: <SignupPage />
+      },
+      {
+        path: "/checkout",
+        element: <CheckoutPage />
       },
       {
         path: "/login",
-        element: <LoginPage/>
+        element: <LoginPage />
       }
     ]
   },

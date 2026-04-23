@@ -3,7 +3,7 @@ import cardImage from "../assets/product-1.png"
 
 import { Star, Heart } from "./icons";
 
-const ProductCard = ({ product }) => {
+const ProductCard = ({ product, ourProducts=false }) => {
   const { price, oldPrice, title, image, discount } = product;
   return (
     <div>
@@ -26,12 +26,14 @@ const ProductCard = ({ product }) => {
           Add To Cart
         </button>
       </div>
-      <div className="p-4">
+      {!ourProducts ? (
+        <div className="p-4">
         <h4 className="font-medium line-clamp-1">{title}</h4>
         <p className="pt-2 pb-3">
            <span className="text-secondary">${price}</span> ${oldPrice}
         </p>
 
+          
         <div>
           <ul className="flex gap-2 items-center">
             <li>
@@ -51,7 +53,34 @@ const ProductCard = ({ product }) => {
             </li>
           </ul>
         </div>
+        </div>
+      ) : (
+        <div className="p-4 space-y-1">
+          <h4 className="font-medium line-clamp-1">{title}</h4>
+          <div className="flex items-center gap-1">
+            <p className="pt-0.5">
+              <span className="text-secondary">${price}</span> ${oldPrice}
+            </p>
+            <ul className="flex gap-2 items-center">
+              <li>
+                <Star color="#FFAD33" />
+              </li>
+              <li>
+                <Star color="#FFAD33"  />
+              </li>
+              <li>
+                <Star color="#FFAD33" />
+              </li>
+              <li>
+                <Star color="#FFAD33" />
+              </li>
+              <li>
+                <Star color="#FFAD33" />
+              </li>
+            </ul>
+          </div>
       </div>
+      )}
     </div>
   );
 };

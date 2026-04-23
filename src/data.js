@@ -1,5 +1,13 @@
 import { Gamepad } from 'lucide-react';
 import { v4 as uuidv4 } from 'uuid';
+import OurProduct_image_1 from "./assets/ourProducts-1.png";
+import OurProduct_image_2 from "./assets/ourProducts-2.png";
+import OurProduct_image_3 from "./assets/ourProducts-3.png";
+
+import FS_image_1 from "./assets/flash-sale-1.png";
+import FS_image_2 from "./assets/flash-sale-2.png";
+import FS_image_3 from "./assets/flash-sale-3.png";
+import FS_image_4 from "./assets/flash-sale-4.png";
 
 export const ProductData = [
   {
@@ -176,6 +184,90 @@ export const BestSellingProductsData = [
     ratings: 4.8
   }
 ];
+
+
+export const ExploreOurProductsData = [
+  {
+    "id": uuidv4(),
+    "image": OurProduct_image_1,
+    "discount": 40,
+    "title": "Breed Dry Dog Food",
+    "price": 100,
+    "originalPrice": 160,
+    "rating": 5,
+    "reviews": 25
+  },
+  {
+    "id": uuidv4(),
+    "image": OurProduct_image_2,
+    "discount": null,
+    "title": "CANON EOS DSLR Camera",
+    "price": 360,
+    "originalPrice": 1160,
+    "rating": 4,
+    "reviews": 95
+  },
+  {
+    "id": uuidv4(),
+    "image": OurProduct_image_3,
+    "discount": 30,
+    "title": "ASUS FHD Gaming Laptop",
+    "price": 700,
+    "originalPrice": 400,
+    "rating": 5,
+    "reviews": 325
+  },
+  {
+    "id": uuidv4(),
+    "image": FS_image_4,
+    "discount": 25,
+    "title": "S-Series Comfort Chair ",
+    "price": 375,
+    "originalPrice": 400,
+    "rating": 4.5,
+    "reviews": 99
+  },
+  {
+    "id": uuidv4(),
+    "image": FS_image_4,
+    "discount": 25,
+    "title": "S-Series Comfort Chair ",
+    "price": 375,
+    "originalPrice": 400,
+    "rating": 4.5,
+    "reviews": 99
+  },
+  {
+    "id": uuidv4(),
+    "image": FS_image_4,
+    "discount": null,
+    "title": "S-Series Comfort Chair ",
+    "price": 375,
+    "originalPrice": 400,
+    "rating": 4.5,
+    "reviews": 99
+  },
+  {
+    "id": uuidv4(),
+    "image": FS_image_4,
+    "discount": 25,
+    "title": "S-Series Comfort Chair ",
+    "price": 375,
+    "originalPrice": 400,
+    "rating": 4.5,
+    "reviews": 99
+  },
+  {
+    "id": uuidv4(),
+    "image": FS_image_4,
+    "discount": 25,
+    "title": "S-Series Comfort Chair ",
+    "price": 375,
+    "originalPrice": 400,
+    "rating": 4.5,
+    "reviews": 99
+  },
+]
 
 
 

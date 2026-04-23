@@ -16,7 +16,7 @@ const BestSellingProducts = () => {
       <Container>
         <div className="border-b border-b-border pb-15">
           <div className="grid grid-cols-[auto_auto] gap-4 mb-10 relative items-end">
-            <SectionHeader subTitle={"This Month"} title={"Best Selling Products"} />
+            <SectionHeader subTitle="This Month" title="Best Selling Products" />
 
             <div className="flex justify-end">
               <Button TagName={Link} to="/shop">View All</Button>

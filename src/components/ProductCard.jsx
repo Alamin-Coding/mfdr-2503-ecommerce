@@ -4,11 +4,11 @@ import cardImage from "../assets/product-1.png"
 import { Star, Heart } from "./icons";
 
 const ProductCard = ({ product, ourProducts=false }) => {
-  const { price, oldPrice, title, image, discount } = product;
+  const { price, oldPrice, title, image, discount, thumbnail } = product;
   return (
     <div>
       <div className="bg-F5F5F5 p-3 group/parent relative parent h-62.5 flex items-center justify-center rounded overflow-hidden">
-        <img src={cardImage} alt="image" />
+        <img src={ thumbnail ? thumbnail :cardImage} alt="image" />
         
         {discount && <div className="absolute top-3 left-3 z-10 w-[55px] h-[26px] flex items-center justify-center text-white text-xs bg-secondary rounded">
           {discount}%

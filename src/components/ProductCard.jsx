@@ -1,34 +1,51 @@
 import { Eye } from "lucide-react";
+import cardImage from "../assets/product-1.png"
 
 import { Star, Heart } from "./icons";
 
 const ProductCard = ({ product }) => {
-  const { price, oldPrice, title, image } = product;
+  const { price, oldPrice, title, image, discount } = product;
   return (
     <div>
-      <div className="bg-F5F5F5 p-3 relative group">
-        <img src={image} alt="image" />
+      <div className="bg-F5F5F5 p-3 group/parent relative parent h-62.5 flex items-center justify-center rounded overflow-hidden">
+        <img src={cardImage} alt="image" />
+        
+        {discount && <div className="absolute top-3 left-3 z-10 w-[55px] h-[26px] flex items-center justify-center text-white text-xs bg-secondary rounded">
+          {discount}%
+        </div>}
 
-        <div className="flex flex-col gap-3 absolute right-0 top-0 z-10">
-          <span className="bg-white w-8.5 h-8.5 rounded-full flex items-center justify-center">
-            <Eye />
+        <div className="flex flex-col gap-3 absolute right-3 top-3 z-10">
+          <span className="cursor-pointer bg-white hover:bg-red-500 group w-8.5 h-8.5 rounded-full flex items-center justify-center">
+            <Heart className="group-hover:stroke-white" stroke="black" />
           </span>
-          <span className="bg-white w-8.5 h-8.5 rounded-full flex items-center justify-center">
-            <Heart color="rgba(0,0,0,0.5)" stroke="green" />
+          <span className="cursor-pointer bg-white hover:bg-red-500 group w-8.5 h-8.5 rounded-full flex items-center justify-center">
+            <Eye className="group-hover:stroke-white" stroke="black" />
           </span>
         </div>
-        <button className="invisible group-hover:visible bg-black text-white w-full absolute bottom-0 left-0">
+        <button className="transition-all duration-300 opacity-0 h-10 group-hover/parent:opacity-100 bg-black text-white w-full absolute -bottom-1 left-0 group-hover/parent:bottom-0">
           Add To Cart
         </button>
       </div>
       <div className="p-4">
-        <h4>{title}</h4>
-        <p>
-          $ <span>{price}</span> ${oldPrice}
+        <h4 className="font-medium line-clamp-1">{title}</h4>
+        <p className="pt-2 pb-3">
+           <span className="text-secondary">${price}</span> ${oldPrice}
         </p>
 
         <div>
-          <ul>
+          <ul className="flex gap-2 items-center">
+            <li>
+              <Star className="text-gold" />
+            </li>
+            <li>
+              <Star className="text-gold" />
+            </li>
+            <li>
+              <Star className="text-gold" />
+            </li>
+            <li>
+              <Star className="text-gold" />
+            </li>
             <li>
               <Star className="text-gold" />
             </li>

@@ -8,7 +8,7 @@ const SectionHeader = ({subTitle, title}) => {
                 {subTitle}
             </span>
         </h3>
-        <h2 className='text-[36px] text-black leading-normal'>{title}</h2>
+        <h2 className='text-[36px] text-black leading-none'>{title}</h2>
     </div>
   )
 }

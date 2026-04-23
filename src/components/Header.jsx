@@ -3,8 +3,13 @@ import searchIcon from "../assets/icons/search.svg";
 import wishlistIcon from "../assets/icons/love.svg";
 import cartIcon from "../assets/icons/cart.svg";
 import userIcon from "../assets/icons/user.svg";
+import AccountMenu from "./AccountMenu";
+import { useSelector } from "react-redux";
 
 const Header = () => {
+  const value =  useSelector((state)=> state.auth)
+  console.log(value)
+  const user = true
   return (
     <div>
       <div className="py-2 bg-black">
@@ -65,15 +70,21 @@ const Header = () => {
               </form>
               <div className="flex items-center gap-4 justify-end">
                 <div className="cursor-pointer">
-                    <img src={wishlistIcon} alt="icon" />
+                  <img src={wishlistIcon} alt="icon" />
                 </div>
                 <div className="cursor-pointer relative">
-                    <img src={cartIcon} alt="icon" />
-                    <span className="text-red-500 absolute -top-3 right-0 z-10">0</span>
+                  <img src={cartIcon} alt="icon" />
+                  <span className="text-red-500 absolute -top-3 right-0 z-10">0</span>
                 </div>
-                <div className="cursor-pointer">
-                    <img src={userIcon} alt="icon" />
-                </div>
+
+                {user ? (<div className="cursor-pointer relative group">
+                  <img src={userIcon} alt="icon" />
+                  <AccountMenu className={"invisible opacity-0 group-hover:visible group-hover:opacity-100 "} />
+                </div>) : (<div className="cursor-pointer relative">
+                  <img src={userIcon} alt="icon" />
+                </div>)}
+
+
               </div>
             </div>
           </div>

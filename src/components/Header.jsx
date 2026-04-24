@@ -5,11 +5,20 @@ import cartIcon from "../assets/icons/cart.svg";
 import userIcon from "../assets/icons/user.svg";
 import AccountMenu from "./AccountMenu";
 import { useSelector } from "react-redux";
-
+import { useEffect, useState } from "react";
+import axios from "axios";
 const Header = () => {
-  const value =  useSelector((state)=> state.auth)
-  console.log(value)
-  const user = true
+  const value = useSelector((state) => state.auth);
+  const user = true;
+
+  const [cart, setCart] = useState([]);
+  useEffect(() => {
+    axios.get("http://localhost:8000/cart")
+      .then((res) => setCart(res.data));
+
+
+  }, []);
+
   return (
     <div>
       <div className="py-2 bg-black">
@@ -23,10 +32,8 @@ const Header = () => {
               <a href="/shop">ShopNow</a>
             </div>
             <div className="flex justify-end">
-              <select>
-                <option value="english" selected>
-                  English
-                </option>
+              <select defaultValue={"english"}>
+                <option value="english">English</option>
                 <option value="bangla">Bangla</option>
               </select>
             </div>
@@ -48,10 +55,10 @@ const Header = () => {
                   <Link to={"/"}>Home</Link>
                 </li>
                 <li>
-                  <Link to={"/"}>Contact</Link>
+                  <Link to={"/contact"}>Contact</Link>
                 </li>
                 <li>
-                  <Link to={"/"}>About</Link>
+                  <Link to={"/about"}>About</Link>
                 </li>
                 <li>
                   <Link to={"/signup"}>Signup</Link>
@@ -63,28 +70,40 @@ const Header = () => {
                 action=""
                 className="grid grid-cols-[1fr_auto] gap-8.5 bg-F5F5F5 py-1.75 px-3 items-center w-60.75"
               >
-                <input type="text" placeholder="What are you looking for?" className="bg-transparent placeholder:text-black/50 px-2 w-full block text-[12px]" />
+                <input
+                  type="text"
+                  placeholder="What are you looking for?"
+                  className="bg-transparent placeholder:text-black/50 px-2 w-full block text-[12px]"
+                />
                 <button type="submit">
                   <img src={searchIcon} alt="icon" />
                 </button>
               </form>
               <div className="flex items-center gap-4 justify-end">
-                <div className="cursor-pointer">
+                <Link to={"wishlist"} className="cursor-pointer">
                   <img src={wishlistIcon} alt="icon" />
-                </div>
-                <div className="cursor-pointer relative">
+                </Link>
+                <Link to={"/cart"} className="cursor-pointer relative">
                   <img src={cartIcon} alt="icon" />
-                  <span className="text-red-500 absolute -top-3 right-0 z-10">0</span>
-                </div>
+                  <span className="text-red-500 absolute -top-3 right-0 z-10">
+                    {cart.length}
+                  </span>
+                </Link>
 
-                {user ? (<div className="cursor-pointer relative group">
-                  <img src={userIcon} alt="icon" />
-                  <AccountMenu className={"invisible opacity-0 group-hover:visible group-hover:opacity-100 "} />
-                </div>) : (<div className="cursor-pointer relative">
-                  <img src={userIcon} alt="icon" />
-                </div>)}
-
-
+                {user ? (
+                  <div className="cursor-pointer relative group">
+                    <img src={userIcon} alt="icon" />
+                    <AccountMenu
+                      className={
+                        "invisible opacity-0 group-hover:visible group-hover:opacity-100 "
+                      }
+                    />
+                  </div>
+                ) : (
+                  <div className="cursor-pointer relative">
+                    <img src={userIcon} alt="icon" />
+                  </div>
+                )}
               </div>
             </div>
           </div>

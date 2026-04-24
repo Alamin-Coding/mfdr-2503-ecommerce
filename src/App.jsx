@@ -5,6 +5,8 @@ import Root from "./components/Root";
 import SignupPage from "./pages/SignupPage";
 import LoginPage from "./pages/LoginPage";
 import ProductPage from "./pages/ProductPage";
+import WishlistPage from "./pages/WishlistPage";
+import AboutPage from "./pages/About";
 
 const router = createBrowserRouter([
   {
@@ -13,24 +15,32 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <HomePage/>
+        element: <HomePage />,
       },
       {
         path: "/signup",
-        element: <SignupPage/>
+        element: <SignupPage />,
       },
       {
         path: "/login",
-        element: <LoginPage/>
+        element: <LoginPage />,
       },
       {
         path: "/shop",
-        element: <ProductPage/>
-      }
-    ]
+        element: <ProductPage />,
+      },
+      {
+        path: "/wishlist",
+        element: <WishlistPage />,
+      },
+      {
+        path: "/about",
+        element: <AboutPage />,
+      },
+    ],
   },
 ]);
 
-const App = () => <RouterProvider router={router} />
+const App = () => <RouterProvider router={router} />;
 
-export default App
+export default App;

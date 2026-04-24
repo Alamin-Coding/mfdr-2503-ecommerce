@@ -106,56 +106,57 @@ import { useEffect, useState } from "react";
 // ];
 
 const ProductPage = () => {
-	const [menus, setMenus] = useState([])
-	const [products, setProducts] = useState([])
-	const [fetchApi, setFetchApi] = useState("https://dummyjson.com/products")
-	const [showCount, setShowCount] = useState(6);
-	const handleShowMore = (value) => {
-		if (showCount < 3) {
-			return setShowCount(3)
-		}
-		setShowCount(value);
-	};
+  const [menus, setMenus] = useState([]);
+  const [products, setProducts] = useState([]);
+  const [fetchApi, setFetchApi] = useState("https://dummyjson.com/products");
+  const [showCount, setShowCount] = useState(6);
+  console.log(showCount);
+  const handleShowMore = (value) => {
+    if (showCount < 3 || value == 0 || value == 1 || value == 2) {
+      return setShowCount(3);
+    }
+    setShowCount(value);
+  };
 
-	const handleCatagoryFilter = (url)=> {
-		setFetchApi(url)
-	}
-	useEffect(()=> {
-			fetch('https://dummyjson.com/products/categories')
-				.then(res => res.json())
-				.then((data)=> setMenus(data));
-	}, [])
+  const handleCatagoryFilter = (url) => {
+    setFetchApi(url);
+  };
+  useEffect(() => {
+    fetch("https://dummyjson.com/products/categories")
+      .then((res) => res.json())
+      .then((data) => setMenus(data));
+  }, []);
 
-	useEffect(()=> {
-			fetch(fetchApi)
-				.then(res => res.json())
-				.then((data)=> setProducts(data.products));
-	}, [fetchApi])
+  useEffect(() => {
+    fetch(fetchApi)
+      .then((res) => res.json())
+      .then((data) => setProducts(data.products));
+  }, [fetchApi]);
 
-	console.log(products)
+  console.log(products);
 
-	return (
-		<Section className={"pb-40"}>
-			<Container>
-				<div className="flex items-center gap-3 pt-20 pb-12.5 text-black/50">
-					<Link to="/">Home</Link>
-					<span>/</span>
-					<span>Shop</span>
-				</div>
-				<div className="grid grid-cols-[280px_1fr]">
-					<div>
-						<div className="pr-4 pt-10">
-							<p className="text-xl pb-4">Shop by Category</p>
-							<ul className="space-y-4">
-								{menus.map((menu) => (
-									<li
-										onClick={()=> handleCatagoryFilter(menu.url)}
-										key={menu.id}
-										title={menu.id}
-										className="text-black flex justify-between gap-2 items-center cursor-pointer relative"
-									>
-										<span>{menu.name}</span>
-										{/* {menu.submenu.length > 0 && (
+  return (
+    <Section className={"pb-40"}>
+      <Container>
+        <div className="flex items-center gap-3 pt-20 pb-12.5 text-black/50">
+          <Link to="/">Home</Link>
+          <span>/</span>
+          <span>Shop</span>
+        </div>
+        <div className="grid grid-cols-[280px_1fr]">
+          <div>
+            <div className="pr-4 pt-10">
+              <p className="text-xl pb-4">Shop by Category</p>
+              <ul className="space-y-4">
+                {menus.map((menu) => (
+                  <li
+                    onClick={() => handleCatagoryFilter(menu.url)}
+                    key={menu.id}
+                    title={menu.id}
+                    className="text-black flex justify-between gap-2 items-center cursor-pointer relative"
+                  >
+                    <span>{menu.name}</span>
+                    {/* {menu.submenu.length > 0 && (
 											<ul className="absolute top-0 right-0">
 												{menu.submenu.map((submenu) => (
 													<li key={submenu.id}>
@@ -164,65 +165,65 @@ const ProductPage = () => {
 												))}
 											</ul>
 										)} */}
-									</li>
-								))}
-							</ul>
-						</div>
-						<div className="pr-4 pt-10">
-							<p className="text-xl pb-4">Shop by Color</p>
-							<ul className="grid grid-cols-1 gap-3">
-								<li className="flex items-center gap-3">
-									<div className="size-3 rounded-full bg-black"></div>
-									<p className="leading-[30px] text-[#767676]">Color 1</p>
-								</li>
-								<li className="flex items-center gap-3">
-									<div className="size-3 rounded-full bg-[#FF0000]"></div>
-									<p className="leading-[30px] text-[#767676]">Color 2</p>
-								</li>
-								<li className="flex items-center gap-3">
-									<div className="size-3 rounded-full bg-[#00FF38]"></div>
-									<p className="leading-[30px] text-[#767676]">Color 3</p>
-								</li>
-							</ul>
-						</div>
-					</div>
-					<div className="space-y-7.5">
-						<div className="flex justify-end">
-							<p>
-								<span>Show :</span>{" "}
-								<input
-									className="w-[97px] border border-border text-center"
-									type="text"
-									onChange={(e) => handleShowMore(e.target.value)}
-									value={showCount}
-								/>
-							</p>
-						</div>
-						<div className="grid grid-cols-3 gap-x-6 gap-y-10">
-							{products?.slice(0,showCount).map((item) => (
-								<ProductCard key={item.id} product={item} />
-							))}
-						</div>
-						{/* Pagination */}
-						<div className="flex pt-10 gap-2">
-							<div className="w-[57px] h-[27px] bg-black text-white flex items-center justify-center cursor-pointer">
-								1
-							</div>
-							<div className="w-[57px] h-[27px] bg-black text-white flex items-center justify-center cursor-pointer">
-								2
-							</div>
-							<div className="w-[57px] h-[27px] bg-black text-white flex items-center justify-center cursor-pointer">
-								3
-							</div>
-							<div className="w-[57px] h-[27px] bg-black text-white flex items-center justify-center cursor-pointer">
-								4
-							</div>
-						</div>
-					</div>
-				</div>
-			</Container>
-		</Section>
-	);
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="pr-4 pt-10">
+              <p className="text-xl pb-4">Shop by Color</p>
+              <ul className="grid grid-cols-1 gap-3">
+                <li className="flex items-center gap-3">
+                  <div className="size-3 rounded-full bg-black"></div>
+                  <p className="leading-[30px] text-[#767676]">Color 1</p>
+                </li>
+                <li className="flex items-center gap-3">
+                  <div className="size-3 rounded-full bg-[#FF0000]"></div>
+                  <p className="leading-[30px] text-[#767676]">Color 2</p>
+                </li>
+                <li className="flex items-center gap-3">
+                  <div className="size-3 rounded-full bg-[#00FF38]"></div>
+                  <p className="leading-[30px] text-[#767676]">Color 3</p>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div className="space-y-7.5">
+            <div className="flex justify-end">
+              <p>
+                <span>Show :</span>
+                <input
+                  className="w-[97px] border border-border text-center"
+                  type="text"
+                  onChange={(e) => handleShowMore(Number(e.target.value))}
+                  value={showCount}
+                />
+              </p>
+            </div>
+            <div className="grid grid-cols-3 gap-x-6 gap-y-10">
+              {products?.slice(0, showCount).map((item) => (
+                <ProductCard key={item.id} product={item} />
+              ))}
+            </div>
+            {/* Pagination */}
+            <div className="flex pt-10 gap-2">
+              <div className="w-[57px] h-[27px] bg-black text-white flex items-center justify-center cursor-pointer">
+                1
+              </div>
+              <div className="w-[57px] h-[27px] bg-black text-white flex items-center justify-center cursor-pointer">
+                2
+              </div>
+              <div className="w-[57px] h-[27px] bg-black text-white flex items-center justify-center cursor-pointer">
+                3
+              </div>
+              <div className="w-[57px] h-[27px] bg-black text-white flex items-center justify-center cursor-pointer">
+                4
+              </div>
+            </div>
+          </div>
+        </div>
+      </Container>
+    </Section>
+  );
 };
 
 export default ProductPage;

@@ -1,0 +1,68 @@
+{
+  "about": {
+    "id": 1,
+    "title": "Our Story",
+    "description": "Exclusive has more than 1 Million products to offer, growing at a very fast. Exclusive offers a diverse assotment in categories ranging  from consumer.",
+    "image": "/images/about.png"
+  },
+  "team": [
+    {
+      "id": "1",
+      "name": "John Doe",
+      "position": "CEO",
+      "photo": "/images/team-1.png"
+    },
+    {
+      "id": "2",
+      "name": "Jane Smith",
+      "position": "CTO",
+      "photo": "/images/team-2.png"
+    },
+    {
+      "id": "3",
+      "name": "Emily Johnson",
+      "position": "CFO",
+      "photo": "/images/team-3.png"
+    },
+    {
+      "id": "4",
+      "name": "Michael Brown",
+      "position": "COO",
+      "photo": "/images/team-4.png"
+    }
+  ],
+  "cart": [
+    {
+      "id": "1",
+      "name": "Product 1",
+      "price": 29.99,
+      "quantity": 2,
+      "image": "/images/product-1.png"
+    },
+    {
+      "id": "dN6hAXEclFc",
+      "name": "Product 2",
+      "price": 20.99,
+      "quantity": 1,
+      "image": "/images/product-2.png"
+    },
+    {
+      "name": "Product 3",
+      "price": 30,
+      "quantity": 3,
+      "image": "/images/product-3.png",
+      "id": "3W3R37R_2Dk"
+    },
+    {
+      "productId": "f9032a09-4098-489d-afbe-e25a31e39309",
+      "quantity": 1,
+      "id": "y4YntBwSnV8"
+    },
+    {
+      "productId": "98eb3bc0-ae2a-4fd6-88e8-a1e287c6c2a2",
+      "quantity": 1,
+      "id": "I2Z1-x8XxTs"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}

@@ -110,7 +110,7 @@ const ProductPage = () => {
   const [products, setProducts] = useState([]);
   const [fetchApi, setFetchApi] = useState("https://dummyjson.com/products");
   const [showCount, setShowCount] = useState(6);
-  console.log(showCount);
+
   const handleShowMore = (value) => {
     if (showCount < 3 || value == 0 || value == 1 || value == 2) {
       return setShowCount(3);
@@ -133,7 +133,6 @@ const ProductPage = () => {
       .then((data) => setProducts(data.products));
   }, [fetchApi]);
 
-  console.log(products);
 
   return (
     <Section className={"pb-40"}>

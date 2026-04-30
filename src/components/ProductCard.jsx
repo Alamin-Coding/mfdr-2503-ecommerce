@@ -3,16 +3,48 @@ import cardImage from "../assets/product-1.png";
 
 import { Star, Heart } from "./icons";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart } from "../features/cartSlice";
+import { Bounce, toast } from "react-toastify";
 
 const ProductCard = ({ product, ourProducts = false }) => {
   const { price, oldPrice, title, image, discount, thumbnail } = product;
+  const {cart} = useSelector(state => state.cart)
+
+  const dispatch = useDispatch()
+  const warnnotify = () => toast.warn('This  prodct already added to cart', {
+position: "top-right",
+autoClose: 5000,
+hideProgressBar: false,
+closeOnClick: false,
+pauseOnHover: true,
+draggable: true,
+progress: undefined,
+theme: "dark",
+transition: Bounce,
+});
+  const successnotify = () => toast.success('Successfully add to cart', {
+position: "top-right",
+autoClose: 5000,
+hideProgressBar: false,
+closeOnClick: false,
+pauseOnHover: true,
+draggable: true,
+progress: undefined,
+theme: "dark",
+transition: Bounce,
+});
 
   // handle post request to add to cart
-  const handleAddToCart = () => {
-    axios.post("http://localhost:8000/cart", {
-      productId: product.id,
-      quantity: 1,
-    });
+  const handleAddToCart = (id) => {
+    // is product exist
+    const isProductExist = cart.find((item)=> item.id == id)
+    if (!isProductExist) {
+      dispatch(addToCart(product))
+      successnotify()
+    }else {
+      warnnotify()
+    }
   };
 
   return (
@@ -35,7 +67,7 @@ const ProductCard = ({ product, ourProducts = false }) => {
           </span>
         </div>
         <button
-          onClick={handleAddToCart}
+          onClick={()=> handleAddToCart(product.id)}
           className="transition-all duration-300 opacity-0 h-10 group-hover/parent:opacity-100 bg-black text-white w-full absolute -bottom-1 left-0 group-hover/parent:bottom-0"
         >
           Add To Cart

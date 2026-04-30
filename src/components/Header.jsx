@@ -11,16 +11,10 @@ const Header = () => {
   const value = useSelector((state) => state.auth);
   const user = true;
 
-  const [cart, setCart] = useState([]);
-  useEffect(() => {
-    axios.get("http://localhost:8000/cart")
-      .then((res) => setCart(res.data));
-
-
-  }, []);
+const {cart} = useSelector((state)=> state.cart)
 
   return (
-    <div>
+    <div className="sticky top-0 left-0 z-50 bg-white">
       <div className="py-2 bg-black">
         <div className="container">
           <div className=" text-white grid grid-cols-[1fr_190px] gap-2 items-center">
@@ -86,7 +80,7 @@ const Header = () => {
                 <Link to={"/cart"} className="cursor-pointer relative">
                   <img src={cartIcon} alt="icon" />
                   <span className="text-red-500 absolute -top-3 right-0 z-10">
-                    {cart.length}
+                    {cart?.length}
                   </span>
                 </Link>
 

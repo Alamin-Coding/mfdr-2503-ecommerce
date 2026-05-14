@@ -6,129 +6,152 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../features/cartSlice";
 import { Bounce, toast } from "react-toastify";
+import { addToWishlist } from "../features/wishlistSlice";
 
 const ProductCard = ({ product, ourProducts = false }) => {
-  const { price, oldPrice, title, image, discount, thumbnail } = product;
-  const {cart} = useSelector(state => state.cart)
+	const { id, price, oldPrice, title, image, discount, thumbnail } = product;
+	const { cart } = useSelector((state) => state.cart);
+	const { wishlist } = useSelector((state) => state.wishlist);
 
-  const dispatch = useDispatch()
-  const warnnotify = () => toast.warn('This  prodct already added to cart', {
-position: "top-right",
-autoClose: 5000,
-hideProgressBar: false,
-closeOnClick: false,
-pauseOnHover: true,
-draggable: true,
-progress: undefined,
-theme: "dark",
-transition: Bounce,
-});
-  const successnotify = () => toast.success('Successfully add to cart', {
-position: "top-right",
-autoClose: 5000,
-hideProgressBar: false,
-closeOnClick: false,
-pauseOnHover: true,
-draggable: true,
-progress: undefined,
-theme: "dark",
-transition: Bounce,
-});
+	const dispatch = useDispatch();
+	const warnnotify = (message) =>
+		toast.warn(message, {
+			position: "top-right",
+			autoClose: 5000,
+			hideProgressBar: false,
+			closeOnClick: false,
+			pauseOnHover: true,
+			draggable: true,
+			progress: undefined,
+			theme: "dark",
+			transition: Bounce,
+		});
+	const successnotify = (message) =>
+		toast.success(message, {
+			position: "top-right",
+			autoClose: 5000,
+			hideProgressBar: false,
+			closeOnClick: false,
+			pauseOnHover: true,
+			draggable: true,
+			progress: undefined,
+			theme: "dark",
+			transition: Bounce,
+		});
 
-  // handle post request to add to cart
-  const handleAddToCart = (id) => {
-    // is product exist
-    const isProductExist = cart.find((item)=> item.id == id)
-    if (!isProductExist) {
-      dispatch(addToCart(product))
-      successnotify()
-    }else {
-      warnnotify()
-    }
-  };
+	// handle post request to add to cart
+	const handleAddToWishlist = (id) => {
+		const isProductExist = wishlist.find((item) => item.id == id);
+		// is product exist
+		if (!isProductExist) {
+			dispatch(addToWishlist(product));
+			successnotify("Successfully add to wishlist");
+		} else {
+			warnnotify("This  prodct already added to wishlist");
+		}
+	};
+	// handle post request to add to cart
+	const handleAddToCart = (id) => {
+		// is product exist
+		const isProductExist = cart.find((item) => item.id == id);
+		if (!isProductExist) {
+			dispatch(addToCart(product));
+			successnotify("Successfully add to cart");
+		} else {
+			warnnotify("This  prodct already added to cart");
+		}
+	};
 
-  return (
-    <div>
-      <div className="bg-F5F5F5 p-3 group/parent relative parent h-62.5 flex items-center justify-center rounded overflow-hidden">
-        <img src={thumbnail ? thumbnail : cardImage} alt="image" />
+	const isItemAdded = (itemId) => {
+		return wishlist.find((item) => item.id == itemId);
+	};
 
-        {discount && (
-          <div className="absolute top-3 left-3 z-10 w-[55px] h-[26px] flex items-center justify-center text-white text-xs bg-secondary rounded">
-            {discount}%
-          </div>
-        )}
+	return (
+		<div>
+			<div className="bg-F5F5F5 p-3 group/parent relative parent h-62.5 flex items-center justify-center rounded overflow-hidden">
+				<img src={thumbnail ? thumbnail : cardImage} alt="image" />
 
-        <div className="flex flex-col gap-3 absolute right-3 top-3 z-10">
-          <span className="cursor-pointer bg-white hover:bg-red-500 group w-8.5 h-8.5 rounded-full flex items-center justify-center">
-            <Heart className="group-hover:stroke-white" stroke="black" />
-          </span>
-          <span className="cursor-pointer bg-white hover:bg-red-500 group w-8.5 h-8.5 rounded-full flex items-center justify-center">
-            <Eye className="group-hover:stroke-white" stroke="black" />
-          </span>
-        </div>
-        <button
-          onClick={()=> handleAddToCart(product.id)}
-          className="transition-all duration-300 opacity-0 h-10 group-hover/parent:opacity-100 bg-black text-white w-full absolute -bottom-1 left-0 group-hover/parent:bottom-0"
-        >
-          Add To Cart
-        </button>
-      </div>
-      {!ourProducts ? (
-        <div className="p-4">
-          <h4 className="font-medium line-clamp-1">{title}</h4>
-          <p className="pt-2 pb-3">
-            <span className="text-secondary">${price}</span> ${oldPrice}
-          </p>
+				{discount && (
+					<div className="absolute top-3 left-3 z-10 w-[55px] h-[26px] flex items-center justify-center text-white text-xs bg-secondary rounded">
+						{discount}%
+					</div>
+				)}
 
-          <div>
-            <ul className="flex gap-2 items-center">
-              <li>
-                <Star className="text-gold" />
-              </li>
-              <li>
-                <Star className="text-gold" />
-              </li>
-              <li>
-                <Star className="text-gold" />
-              </li>
-              <li>
-                <Star className="text-gold" />
-              </li>
-              <li>
-                <Star className="text-gold" />
-              </li>
-            </ul>
-          </div>
-        </div>
-      ) : (
-        <div className="p-4 space-y-1">
-          <h4 className="font-medium line-clamp-1">{title}</h4>
-          <div className="flex items-center gap-1">
-            <p className="pt-0.5">
-              <span className="text-secondary">${price}</span> ${oldPrice}
-            </p>
-            <ul className="flex gap-2 items-center">
-              <li>
-                <Star color="#FFAD33" />
-              </li>
-              <li>
-                <Star color="#FFAD33" />
-              </li>
-              <li>
-                <Star color="#FFAD33" />
-              </li>
-              <li>
-                <Star color="#FFAD33" />
-              </li>
-              <li>
-                <Star color="#FFAD33" />
-              </li>
-            </ul>
-          </div>
-        </div>
-      )}
-    </div>
-  );
+				<div className="flex flex-col gap-3 absolute right-3 top-3 z-10">
+					<span
+						onClick={() => handleAddToWishlist(product.id)}
+						className={`cursor-pointer ${isItemAdded(id) ? "bg-red-600" : "bg-white"} hover:bg-red-500 group w-8.5 h-8.5 rounded-full flex items-center justify-center`}
+					>
+						{isItemAdded(id) ?
+							<Heart className="group-hover:stroke-white" stroke="white" />
+						:	<Heart className="group-hover:stroke-white" stroke="black" />}
+					</span>
+					<span className="cursor-pointer bg-white hover:bg-red-500 group w-8.5 h-8.5 rounded-full flex items-center justify-center">
+						<Eye className="group-hover:stroke-white" stroke="black" />
+					</span>
+				</div>
+				<button
+					onClick={() => handleAddToCart(product.id)}
+					className="transition-all duration-300 opacity-0 h-10 group-hover/parent:opacity-100 bg-black text-white w-full absolute -bottom-1 left-0 group-hover/parent:bottom-0"
+				>
+					Add To Cart
+				</button>
+			</div>
+			{!ourProducts ?
+				<div className="p-4">
+					<h4 className="font-medium line-clamp-1">{title}</h4>
+					<p className="pt-2 pb-3">
+						<span className="text-secondary">${price}</span> ${oldPrice}
+					</p>
+
+					<div>
+						<ul className="flex gap-2 items-center">
+							<li>
+								<Star className="text-gold" />
+							</li>
+							<li>
+								<Star className="text-gold" />
+							</li>
+							<li>
+								<Star className="text-gold" />
+							</li>
+							<li>
+								<Star className="text-gold" />
+							</li>
+							<li>
+								<Star className="text-gold" />
+							</li>
+						</ul>
+					</div>
+				</div>
+			:	<div className="p-4 space-y-1">
+					<h4 className="font-medium line-clamp-1">{title}</h4>
+					<div className="flex items-center gap-1">
+						<p className="pt-0.5">
+							<span className="text-secondary">${price}</span> ${oldPrice}
+						</p>
+						<ul className="flex gap-2 items-center">
+							<li>
+								<Star color="#FFAD33" />
+							</li>
+							<li>
+								<Star color="#FFAD33" />
+							</li>
+							<li>
+								<Star color="#FFAD33" />
+							</li>
+							<li>
+								<Star color="#FFAD33" />
+							</li>
+							<li>
+								<Star color="#FFAD33" />
+							</li>
+						</ul>
+					</div>
+				</div>
+			}
+		</div>
+	);
 };
 
 export default ProductCard;

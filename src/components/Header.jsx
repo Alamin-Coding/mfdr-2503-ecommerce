@@ -12,6 +12,7 @@ const Header = () => {
   const user = true;
 
 const {cart} = useSelector((state)=> state.cart)
+const {wishlist} = useSelector((state)=> state.wishlist)
 
   return (
     <div className="sticky top-0 left-0 z-50 bg-white">
@@ -74,8 +75,11 @@ const {cart} = useSelector((state)=> state.cart)
                 </button>
               </form>
               <div className="flex items-center gap-4 justify-end">
-                <Link to={"wishlist"} className="cursor-pointer">
+                <Link to={"wishlist"} className="cursor-pointer relative">
                   <img src={wishlistIcon} alt="icon" />
+                  <span className="text-red-500 absolute -top-3 right-0 z-10">
+                    {wishlist?.length}
+                  </span>
                 </Link>
                 <Link to={"/cart"} className="cursor-pointer relative">
                   <img src={cartIcon} alt="icon" />

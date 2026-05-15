@@ -3,9 +3,12 @@ import cardImage from "../assets/product-1.png";
 
 import { Star, Heart } from "./icons";
 import { Trash2 } from "lucide-react";
+import { useDispatch } from "react-redux";
+import { deleteWishlistItem } from "../features/wishlistSlice";
 
-const WishlistCard = ({ product, justForYou=false }) => {
-  const { price, oldPrice, title, image, discount, thumbnail } = product;
+const WishlistCard = ({ product, justForYou = false }) => {
+  const { id, price, oldPrice, title, image, discount, thumbnail } = product;
+  const dispatch = useDispatch();
   return (
     <div>
       <div className="bg-F5F5F5 p-3 group/parent relative parent h-62.5 flex items-center justify-center rounded overflow-hidden">
@@ -21,10 +24,12 @@ const WishlistCard = ({ product, justForYou=false }) => {
           <span className="cursor-pointer bg-white hover:bg-red-500 group w-8.5 h-8.5 rounded-full flex items-center justify-center">
             {justForYou ? (
               <Eye className="group-hover:stroke-white" stroke="black" />
-
             ) : (
-
-              <Trash2 className="group-hover:stroke-white" stroke="black" />
+              <Trash2
+                onClick={() => dispatch(deleteWishlistItem(id))}
+                className="group-hover:stroke-white"
+                stroke="black"
+              />
             )}
           </span>
         </div>

@@ -1,12 +1,45 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Container from "../components/Container";
 import Button from "../components/Button";
 import Section from "../components/Section";
 import WishlistCard from "../components/WishlistCard";
 
 import { BestSellingProductsData } from "../data";
+import { useSelector } from "react-redux";
 
 const Wishlist = () => {
+  const [Item1, setItem1] = useState([]);
+  const [Item2, setItem2] = useState([]);
+  const [Item3, setItem3] = useState([]);
+  const { wishlist } = useSelector((state) => state.wishlist);
+  const categoryArray = Array.from(
+    new Set(wishlist.map((item) => item.category)),
+  );
+
+  console.log(categoryArray);
+
+  useEffect(() => {
+    if (categoryArray.length > 0) {
+      fetch(`https://dummyjson.com/products/category/${categoryArray[0]}`)
+        .then((res) => res.json())
+        .then((data) => setItem1(data.products[0]));
+    }
+    if (categoryArray.length > 1) {
+      fetch(`https://dummyjson.com/products/category/${categoryArray[2]}`)
+        .then((res) => res.json())
+        .then((data) => setItem2(data.products[2]));
+    }
+    if (categoryArray.length > 2) {
+      fetch(`https://dummyjson.com/products/category/${categoryArray[2]}`)
+        .then((res) => res.json())
+        .then((data) => setItem3(data.products[3]));
+    }
+  }, []);
+
+  console.log(Item1);
+  console.log(Item2);
+  console.log(Item3);
+
   return (
     <Section className="pb-35">
       <Container>
@@ -18,8 +51,11 @@ const Wishlist = () => {
             </Button>
           </div>
 
+          {wishlist?.length < 1 && (
+            <p className="p-50 text-xl">Item not found!</p>
+          )}
           <div className="grid grid-cols-4 gap-6">
-            {BestSellingProductsData.slice(0, 4).map((product) => (
+            {wishlist?.map((product) => (
               <WishlistCard key={product.id} product={product} />
             ))}
           </div>
@@ -41,9 +77,10 @@ const Wishlist = () => {
             </div>
 
             <div className="grid grid-cols-4 gap-6">
-              {BestSellingProductsData.slice(0, 4).map((product) => (
-                <WishlistCard key={product.id} product={product} justForYou={true} />
-              ))}
+              {Item1 && <WishlistCard product={Item1} justForYou={true} />}
+              {Item2 && <WishlistCard product={Item2} justForYou={true} />}
+              {Item3 && <WishlistCard product={Item3} justForYou={true} />}
+              {/* <WishlistCard product={Item4} justForYou={true} /> */}
             </div>
           </div>
         </div>
